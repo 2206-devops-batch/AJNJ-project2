@@ -1,12 +1,12 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nginx-ingress
+  name: green-ing
   annotations:
-    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: ajnjweb.p2.com
+  - host: ajnjweb.com
     http:
       paths:
       - path: /
@@ -16,4 +16,10 @@ spec:
             name: flask-green-service
             port: 
               number: 5000
-
+      - path: /blue
+        pathType: Prefix
+        backend:
+          service:
+            name: flask-blue-service
+            port:
+              number: 5000

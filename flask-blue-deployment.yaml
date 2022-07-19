@@ -2,16 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: flask-blue-deployment
-  labels:
-    app: flask
 spec:
   replicas: 3
-  # type: RollingUpdate
-  # rollingUpdate:
-  #   maxSurge: 3
-  #   maxUnavailable: 1
-  #   intervalSeconds: 5
-  #   updatePeriodSeconds: 5
   selector:
     matchLabels:
       app: flask
@@ -19,13 +11,14 @@ spec:
     metadata:
       labels:
         app: flask
+        version: "v1"
     spec:
       containers:
       - name: flask
         image: kubgroup/p1_kubgroup:latest
         ports:
         - containerPort: 5000
-        resources:
-          limits:
-            memory: 512Mi
-            cpu: "1"
+        # resources:
+        #   limits:
+        #     memory: 512Mi
+        #     cpu: "1"
